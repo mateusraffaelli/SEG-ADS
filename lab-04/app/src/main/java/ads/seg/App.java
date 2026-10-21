@@ -1,104 +1,115 @@
 package ads.seg;
-// Módulo que contém as classes fundamentais, como java.lang, java.util, java.io, entre outras.
-import module java.base; // requer java 25
-/**
- * Classe principal para testar a classe PasswordHashing com diferentes
- * algoritmos de hash.
- */
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Scanner;
+
 public class App {
-    /**
-     * Classe interna para armazenar os resultados do hash, incluindo o nome do
-     * algoritmo, o tempo de execução em nanossegundos e o hash da senha em base64
-     * para exibição formatada.
-     */
-    private record HashResult(String algorithm, String timeNanos, String base64Hash) {
-    }
-    private ArrayList<HashResult> results = new ArrayList<>();
-    private final SecureRandom S_RANDOM = new SecureRandom();
-    /**
-     * Gera os hashes para cada algoritmo e mede o tempo de execução, armazenando os
-     * resultados em uma lista para exibição posterior.
-     *
-     * @throws NoSuchAlgorithmException caso o algoritmo de hash não exista
-     * @throws InvalidKeySpecException caso haja um erro na especificação da chave para PBKDF2
-     */
-    private void generateHashs() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        Base64.Encoder encoder = Base64.getEncoder();
-        byte[] hashedPassword = null;
-// Senha a ser testada
-// Para limpar a senha da memória, é melhor usar char[] em vez de String, pois
-// Strings são imutáveis e podem permanecer na memória por mais tempo.
-        char[] password = { '1', '2', '3', '4', '5', '6' };
-// Removendo a senha da memória após o uso: Arrays.fill(password, '\0');
-// MessageDigest (MD5, SHA-1, SHA-256, SHA-512)
-        String[] algorithms = { "MD5", "SHA-1", "SHA-256", "SHA-512" };
-        for (String algorithm : algorithms) {
-            byte[] salt = new byte[16];
-            S_RANDOM.nextBytes(salt);
-            long start = System.nanoTime();
-            hashedPassword = PasswordHashing.hashPasswordWithMessageDigest(password, salt, algorithm);
-            long end = System.nanoTime();
-            String hashBase64 = encoder.encodeToString(hashedPassword != null ? hashedPassword : new byte[0]);
-            results.add(new HashResult(algorithm, String.format("%,d", end - start), hashBase64));
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Teste do UserService ===");
+        System.out.println("Algoritmo de hash:");
+        System.out.println("1 - BCrypt");
+        System.out.println("2 - PBKDF2");
+        System.out.print("Escolha: ");
+        String escolhaAlgoritmo = scanner.nextLine().trim();
+
+        UserService userService;
+        if (escolhaAlgoritmo.equals("2")) {
+            userService = new UserService(new InMemory(), "PBKDF2");
+            System.out.println("Usando PBKDF2.");
+        } else {
+            userService = new UserService(new InMemory());
+            System.out.println("Usando BCrypt.");
         }
-// PBKDF2
-        int iterations = 210000;
-        int keyLength = 128;
-        String pbkdf2Algorithm = "PBKDF2WithHmacSHA512";
-        byte[] salt = new byte[16];
-        S_RANDOM.nextBytes(salt);
-        long start = System.nanoTime();
-        hashedPassword = PasswordHashing.hashPasswordWithPBKDF2(password, salt, pbkdf2Algorithm, iterations, keyLength);
-        long end = System.nanoTime();
-        String hashBase64 = encoder.encodeToString(hashedPassword != null ? hashedPassword : new byte[0]);
-        results.add(new HashResult(pbkdf2Algorithm, String.format("%,d", end - start), hashBase64));
-// BCrypt
-        start = System.nanoTime();
-        hashedPassword = PasswordHashing.hashPasswordWithBCrypt(password);
-        end = System.nanoTime();
-        hashBase64 = encoder.encodeToString(hashedPassword != null ? hashedPassword : new byte[0]);
-        results.add(new HashResult("BCrypt", String.format("%,d", end - start), hashBase64));
-    }
-    /**
-     * Exibe os resultados dos hashes em um formato de tabela.
-     */
-    private void displayResults() {
-        String duracao = "Duração (ns)";
-        int maxAlgorithmLength = results.stream().mapToInt(r -> r.algorithm.length()).max().orElse(0);
-        int maxTimeLength = Math.max(duracao.length(),results.stream().mapToInt(r -> r.timeNanos.length()).max().orElse(0)
-        );
-        int maxHashLength = results.stream().mapToInt(r -> r.base64Hash.length()).max().orElse(0);
-        int totalLength = maxAlgorithmLength + maxTimeLength + maxHashLength + 9; // 7 para os espaços e bordas
-        String border = String.format("+%s+", "-".repeat(totalLength));
-        System.out.println(border);
-        System.out.println(String.format("| %-" + (maxAlgorithmLength) + "s | ", "Algoritmo")
-                + String.format("%-" + (maxTimeLength) + "s ", duracao)
-                + String.format(" | %-" + (maxHashLength) + "s |", "Hash (base64)"));
-        System.out.println(border);
-        for (HashResult result : results) {
-            String line = String.format("| %-" + (maxAlgorithmLength) + "s | ", result.algorithm)
-                    + String.format("%" + (maxTimeLength) + "s | ", result.timeNanos)
-                    + String.format("%-" + (maxHashLength) + "s |", result.base64Hash);
-            System.out.println(line);
+
+        boolean executando = true;
+        while (executando) {
+            System.out.println();
+            System.out.println("--- Menu ---");
+            System.out.println("1 - Cadastrar usuário");
+            System.out.println("2 - Autenticar (login)");
+            System.out.println("3 - Alterar senha");
+            System.out.println("0 - Sair");
+            System.out.print("Opção: ");
+
+            String opcao = scanner.nextLine().trim();
+
+            switch (opcao) {
+                case "1":
+                    cadastrar(scanner, userService);
+                    break;
+                case "2":
+                    autenticar(scanner, userService);
+                    break;
+                case "3":
+                    alterarSenha(scanner, userService);
+                    break;
+                case "0":
+                    executando = false;
+                    System.out.println("Encerrando.");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
         }
-        System.out.println(border);
+
+        scanner.close();
     }
-    public static void main(String[] args) throws IOException {
-        java.util.Locale.setDefault(java.util.Locale.of("pt", "BR"));
-        App app = new App();
-// Gerando os hashes e medindo o tempo de execução para cada algoritmo
+
+    private static void cadastrar(Scanner scanner, UserService userService) {
+        System.out.print("Login: ");
+        String login = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
         try {
-            app.generateHashs();
+            if (userService.register(login, senha)) {
+                System.out.println("Usuário cadastrado com sucesso.");
+            } else {
+                System.out.println("Não foi possível cadastrar.");
+            }
+        } catch (UserAlreadyExistsException e) {
+            System.out.println("Erro: " + e.getMessage());
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            System.err.println("Erro ao gerar os hashes: " + e.getMessage());
+            System.out.println("Erro de criptografia: " + e.getMessage());
         }
-// Exibindo os resultados formatados
-        app.displayResults();
-// Isso não funcionará em IDEs como IntelliJ IDEA ou se executar com o gradle
-// run,
-// pois o console não está disponível. Use o terminal ou o console do sistema
-// operacional para testar.
-// char[] s = System.console().readPassword("Entre com a senha: ");
-// System.out.println("Senha: " + new String(s));
+    }
+
+    private static void autenticar(Scanner scanner, UserService userService) {
+        System.out.print("Login: ");
+        String login = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        try {
+            if (userService.authenticate(login, senha)) {
+                System.out.println("Autenticado com sucesso.");
+            }
+        } catch (InvalidLoginException | InvalidPasswordException e) {
+            System.out.println("Falha na autenticação: " + e.getMessage());
+        }
+    }
+
+    private static void alterarSenha(Scanner scanner, UserService userService) {
+        System.out.print("Login: ");
+        String login = scanner.nextLine();
+        System.out.print("Senha atual: ");
+        String senhaAntiga = scanner.nextLine();
+        System.out.print("Nova senha: ");
+        String novaSenha = scanner.nextLine();
+
+        try {
+            if (userService.updatePassword(login, senhaAntiga, novaSenha)) {
+                System.out.println("Senha alterada com sucesso.");
+            } else {
+                System.out.println("Não foi possível alterar a senha.");
+            }
+        } catch (InvalidLoginException | InvalidPasswordException e) {
+            System.out.println("Falha na autenticação: " + e.getMessage());
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            System.out.println("Erro de criptografia: " + e.getMessage());
+        }
     }
 }

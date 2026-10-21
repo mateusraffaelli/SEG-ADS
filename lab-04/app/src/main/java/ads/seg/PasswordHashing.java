@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 public abstract class PasswordHashing {
     // Charset padrão para codificação de strings
-    private static final Charset charset = StandardCharsets.UTF_8;
+    static final Charset charset = StandardCharsets.UTF_8;
     /**
      * Método que recebe uma senha e a converte para um array de bytes
      * @param password senha do usuário em formato char[]
