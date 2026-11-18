@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5bab5a74-c1c3-4a9d-b67b-7549970f7ebc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lab-06/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/.idea/lab-06.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/java/ads/seg/SegApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/java/ads/seg/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/java/ads/seg/config/WebClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/java/ads/seg/controller/GitHubApiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/java/ads/seg/controller/GitHubController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/resources/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/main/resources/templates/repositorios.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab-06/lab-05/src/test/java/ads/seg/SegApplicationTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3MIgkXyqu3D8IdLQ6e5IeAAhoUl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/aluno/SEG-ADS",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5bab5a74-c1c3-4a9d-b67b-7549970f7ebc" name="Changes" comment="" />
+      <created>1795043638578</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1795043638578</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

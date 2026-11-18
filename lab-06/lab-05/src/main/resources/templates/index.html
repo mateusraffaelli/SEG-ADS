@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório sobre Autorização</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 32px 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Laboratório sobre autorização</h1>
+        <div th:if="${nome == null}">
+            <p>Você não está autenticado.</p>
+            <a href="/oauth2/authorization/github">Fazer login com GitHub</a>
+        </div>
+        <div th:if="${nome != null}">
+            <p>Olá, <strong th:text="${nome}">Usuário</strong>! Você fez login com sucesso pelo GitHub.</p>
+            <p>Veja seus <a href="/repos">repositórios clicando aqui</a>.</p>
+            <a href="/logout" >Sair</a>
+        </div>
+    </div>
+</body>
+</html>
