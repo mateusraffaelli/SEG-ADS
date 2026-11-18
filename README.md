@@ -10,3 +10,4 @@
 - [Laboratório 03](/lab-03) - Lab03
 - [Laboratório 04](/lab-04) - Lab04
 - [Laboratório 05](/lab-05) - Lab05
+- [Laboratório 06](/lab-06) - Lab06
